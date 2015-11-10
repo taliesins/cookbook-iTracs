@@ -1,6 +1,6 @@
 #
 # Author:: Taliesin Sisson (<taliesins@yahoo.com>)
-# Cookbook Name:: iTracs
+# Cookbook Name:: itracs
 # Attributes:: default
 # Copyright 2014-2015, Chef Software, Inc.
 # License:: Apache License, Version 2.0
@@ -17,11 +17,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['iTracs']['name'] = 'iTRACS Physical Layer Manager v9.0'
-default['iTracs']['filename'] = 'setup'
-default['iTracs']['filenameextension'] = 'msi'
-default['iTracs']['url'] = 'http://www.yourserver.com/' + default['iTracs']['filename'] + '.' + default['iTracs']['filenameextension'] 
-default['iTracs']['checksum'] = '1e194aa6252861ad1386479bbfb68d63720a2b6a3f3bd97961e6a89738b75aff'
+default['itracs']['name'] = 'iTRACS Physical Layer Manager v9.0'
+default['itracs']['filename'] = 'setup'
+default['itracs']['filenameextension'] = 'msi'
+default['itracs']['url'] = 'http://www.yourserver.com/' + default['itracs']['filename'] + '.' + default['itracs']['filenameextension'] 
+default['itracs']['checksum'] = '1e194aa6252861ad1386479bbfb68d63720a2b6a3f3bd97961e6a89738b75aff'
 
-default['iTracs']['properties']['TARGETDIR'] = 'C:\\Program Files (x86)\\iTRACS Corp\\iTRACS Physical Layer Manager v9.0\\'
-default['iTracs']['properties']['PIDKEY'] = ''
+default['itracs']['properties']['TARGETDIR'] = 'C:\\Program Files (x86)\\iTRACS Corp\\iTRACS Physical Layer Manager v9.0\\'
+default['itracs']['properties']['PIDKEY'] = ''
