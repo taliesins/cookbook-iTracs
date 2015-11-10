@@ -21,7 +21,7 @@ default['iTracs']['name'] = 'iTRACS Physical Layer Manager v9.0'
 default['iTracs']['filename'] = 'setup'
 default['iTracs']['filenameextension'] = 'msi'
 default['iTracs']['url'] = 'http://www.yourserver.com/' + default['iTracs']['filename'] + '.' + default['iTracs']['filenameextension'] 
-default['iTracs']['checksum'] = 'e13576edc17321ab45ed8a5a1043f6bba42594bb41f6a9f51a2d8a86f95ccc04'
+default['iTracs']['checksum'] = '1e194aa6252861ad1386479bbfb68d63720a2b6a3f3bd97961e6a89738b75aff'
 
 default['iTracs']['properties']['TARGETDIR'] = 'C:\\Program Files (x86)\\iTRACS Corp\\iTRACS Physical Layer Manager v9.0\\'
 default['iTracs']['properties']['PIDKEY'] = ''
