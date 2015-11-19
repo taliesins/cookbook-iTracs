@@ -11,6 +11,8 @@ if node['itracs']['properties']['PIDKEY'] == ""
 	raise "Please configure itracs serial key in PIDKEY attribute"
 end
 
+include_recipe 'autoit'
+
 windows_package node['itracs']['name'] do
 	checksum node['itracs']['checksum']
 	source node['itracs']['url']

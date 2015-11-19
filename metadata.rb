@@ -7,3 +7,4 @@ long_description 'Installs/Configures itracs'
 
 version          '0.1.0'
 
+depends 'autoit'
