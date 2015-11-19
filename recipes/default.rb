@@ -2,7 +2,7 @@
 # Cookbook Name:: itracs
 # Recipe:: default
 #
-# Copyright (C) 2015 YOUR_NAME
+# Copyright (C) 2015 Taliesin Sisson
 #
 # All rights reserved - Do Not Redistribute
 #
