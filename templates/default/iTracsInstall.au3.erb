@@ -19,52 +19,71 @@ EndIf
 
 ;Normal installation
 RunInstall($WindowName)
+
+ConsoleWrite("Finished installing...")
 Exit(0)
 
 Func WaitForControl($windowName, $controlId, $pollDuration)
+   ConsoleWrite("Waiting for control...")
    $hCtrl = 0
    $Waiting = True
    While ($Waiting)
 	  If WinExists($windowName) Then
 		 $hCtrl = ControlGetHandle($windowName, "", $controlId)
 		 If $hCtrl Then
+         ConsoleWrite("Succeeded waiting for control...")
 			Return True
 		 Else
+         ConsoleWrite("Sleep for now...")
 			Sleep($pollDuration)
 		 EndIf
 	  Else
+       ConsoleWrite("Failed while waiting for control...")
 		 Return False
 	  EndIf
    WEnd
+   ConsoleWrite("Failed while waiting for control...")
+   Return False
 EndFunc
 
 Func AbortInstall($windowName)
+   ConsoleWrite("Aborting install, as it is already installed...")
    WinWaitActive($windowName)
+   ConsoleWrite("Click cancel")
    ControlClick($windowName, "Cancel", 51)
+   ConsoleWrite("Click yes")
    ControlClick($windowName, "Yes", 95)
    WinWaitActive($windowName)
+   ConsoleWrite("Click close")
    ControlClick($windowName, "Close", 48)
 
    Return True
 EndFunc
 
 Func RunInstall($windowName)
+   ConsoleWrite("Installing...")
    WinWaitActive($windowName)
+   ConsoleWrite("Click next")
    ControlClick($windowName, "Next", 99)
 
    WinWaitActive($windowName)
+   ConsoleWrite("Check selected box")
    ControlCommand($windowName, "", 625, "Check")
 
    WinWaitActive($windowName)
+   ConsoleWrite("Check next")
    ControlClick($windowName, "Next", 99)
 
    WinWaitActive($windowName)
+   ConsoleWrite("Check next")
    ControlClick($windowName, "Next", 99)
 
    WinWaitActive($windowName)
+   ConsoleWrite("Check next")
    ControlClick($windowName, "Next", 99)
 
    WinWaitActive($windowName)
+   ConsoleWrite("Check next")
    ControlClick($windowName, "Next", 99)
 
    ; Wait for install to complete
