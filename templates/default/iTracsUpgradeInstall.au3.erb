@@ -1,0 +1,18 @@
+#include <MsgBoxConstants.au3>
+#include <AutoItConstants.au3>
+
+AutoItSetOption("MouseCoordMode", 0)
+$WindowName = "iTRACS Activation and Updates"
+$InstallationPath = "iTRACSUpdater.exe"
+$WorkingDirectory = "<%= @WorkingDirectory %>"
+
+Run($InstallationPath, $WorkingDirectory)
+
+WinWaitActive($WindowName)
+MouseClick($MOUSE_CLICK_PRIMARY, 500,400, 2)
+Sleep(500)
+MouseClick($MOUSE_CLICK_PRIMARY, 500,400, 2)
+Sleep(20000)
+MouseClick($MOUSE_CLICK_PRIMARY, 500,400, 2)
+Sleep(500)
+MouseClick($MOUSE_CLICK_PRIMARY, 600,400, 2)

@@ -1,0 +1,77 @@
+$WindowName = "iTRACS Physical Layer Manager v9.0"
+$Serial = "<%= node['itracs']['properties']['PIDKEY'] %>"
+$TargetDir = "<%= node['itracs']['properties']['TARGETDIR'] %>"
+$InstallationPath = "setup.msi"
+$LogPath = "test.log"
+$WorkingDirectory = "<%= @WorkingDirectory %>"
+
+Run("msiexec.exe /i """ & $InstallationPath & """ TARGETDIR=""" & $TargetDir & """ PIDKEY=""" & $Serial & """ /L* """ & $LogPath & """", $WorkingDirectory)
+
+WinWaitActive($WindowName)
+
+; Check if already installed
+$hCtrl = ControlGetHandle($WindowName, "", 682)
+If $hCtrl Then
+   ; Cancel installation as its already installed
+   AbortInstall($WindowName)
+   Exit(1)
+EndIf
+
+;Normal installation
+RunInstall($WindowName)
+Exit(0)
+
+Func WaitForControl($windowName, $controlId, $pollDuration)
+   $hCtrl = 0
+   $Waiting = True
+   While ($Waiting)
+	  If WinExists($windowName) Then
+		 $hCtrl = ControlGetHandle($windowName, "", $controlId)
+		 If $hCtrl Then
+			Return True
+		 Else
+			Sleep($pollDuration)
+		 EndIf
+	  Else
+		 Return False
+	  EndIf
+   WEnd
+EndFunc
+
+Func AbortInstall($windowName)
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Cancel", 51)
+   ControlClick($windowName, "Yes", 95)
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Close", 48)
+
+   Return True
+EndFunc
+
+Func RunInstall($windowName)
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Next", 99)
+
+   WinWaitActive($windowName)
+   ControlCommand($windowName, "", 625, "Check")
+
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Next", 99)
+
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Next", 99)
+
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Next", 99)
+
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Next", 99)
+
+   ; Wait for install to complete
+   $PollDuration = 500
+   WaitForControl($windowName, 48, $PollDuration)
+   WinWaitActive($windowName)
+   ControlClick($windowName, "Close", 48)
+
+   Return True
+EndFunc

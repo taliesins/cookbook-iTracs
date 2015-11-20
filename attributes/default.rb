@@ -25,3 +25,9 @@ default['itracs']['checksum'] = '1e194aa6252861ad1386479bbfb68d63720a2b6a3f3bd97
 
 default['itracs']['properties']['TARGETDIR'] = 'C:\\Program Files (x86)\\iTRACS Corp\\iTRACS Physical Layer Manager v9.0\\'
 default['itracs']['properties']['PIDKEY'] = ''
+
+default['itracs']['update']['filename'] = 'iTRACSUpdate'
+default['itracs']['update']['version'] = '2170'
+default['itracs']['update']['filenameextension'] = 'cab'
+default['itracs']['update']['url'] = 'http://www.yourserver.com/' + default['itracs']['update']['filename'] + '.' + default['itracs']['update']['filenameextension'] 
+default['itracs']['update']['checksum'] = '280092e0232a839b7015a3a4f3ca670160c80783f3d5dbadd741639e86bcbe8e'
