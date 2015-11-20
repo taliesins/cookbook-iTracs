@@ -19,6 +19,10 @@ include_recipe '7-zip'
 working_directory = File.join(Chef::Config['file_cache_path'], '/itracs')
 win_friendly_working_directory = win_friendly_path(working_directory)
 
+directory working_directory do
+  recursive true
+end
+
 itracs_install_script_path = File.join(working_directory, 'iTracsInstall.au3')
 win_friendly_itracs_install_script_path = win_friendly_path(itracs_install_script_path)
 itracs_installed = is_package_installed?("#{node['itracs']['name']}")
