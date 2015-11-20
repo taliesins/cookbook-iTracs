@@ -27,6 +27,7 @@ Func WaitForControl($windowName, $controlId, $pollDuration)
    ConsoleWrite("Waiting for control...")
    $hCtrl = 0
    $Waiting = True
+   $counter = 1
    While ($Waiting)
 	  If WinExists($windowName) Then
 		 $hCtrl = ControlGetHandle($windowName, "", $controlId)
@@ -34,6 +35,11 @@ Func WaitForControl($windowName, $controlId, $pollDuration)
          ConsoleWrite("Succeeded waiting for control...")
 			Return True
 		 Else
+         $counter = $counter + 1
+         If $counter > 60
+             ConsoleWrite("Failed while waiting for control...")
+             Return False            
+         EndIf
          ConsoleWrite("Sleep for now...")
 			Sleep($pollDuration)
 		 EndIf
