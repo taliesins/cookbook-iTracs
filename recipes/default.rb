@@ -61,6 +61,11 @@ execute "Install #{win_friendly_itracs_install_exe_path}" do
   not_if {itracs_installed}
 end
 
+windows_feature "NetFx3" do
+  action :install
+  all true
+end
+
 itracs_update_install_script_path = File.join(working_directory, 'iTracsUpgradeInstall.au3')
 itracs_update_install_exe_path = File.join(working_directory, 'iTracsUpgradeInstall.exe')
 win_friendly_itracs_update_install_script_path = win_friendly_path(itracs_update_install_script_path)
