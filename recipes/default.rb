@@ -41,7 +41,7 @@ template itracs_install_script_path do
 end
 
 execute "Compile #{win_friendly_itracs_install_script_path} with AutoIt" do
-  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{File.join(node['autoit']['home'], '/Aut2Exe/Aut2exe.exe')}\" /in \"#{win_friendly_itracs_install_script_path}\" /out \"#{win_friendly_itracs_install_exe_path}\""
+  command "\"#{File.join(node['autoit']['home'], '/Aut2Exe/Aut2exe.exe')}\" /in \"#{win_friendly_itracs_install_script_path}\" /out \"#{win_friendly_itracs_install_exe_path}\""
   not_if {itracs_installed}
 end
 
@@ -51,13 +51,9 @@ remote_file download_path do
   not_if {itracs_installed}
 end
 
-powershell_script "Install #{node['itracs']['name']} with AutoIt" do
-    code <<-EOH
-$process = Start-Process -FilePath "#{win_friendly_itracs_install_exe_path}" -NoNewWindow -PassThru -Wait
-$process.ExitCode    
-    EOH
-    action :run
-    not_if {itracs_installed}
+execute "Run #{win_friendly_itracs_install_exe_path}" do
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{win_friendly_itracs_install_exe_path}\""
+  not_if {itracs_installed}
 end
 
 itracs_update_install_script_path = File.join(working_directory, 'iTracsUpgradeInstall.au3')
@@ -89,15 +85,11 @@ remote_file download_path do
 end
 
 execute "Exract #{node['itracs']['name']} Update #{node['itracs']['update']['version']}" do
-  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{File.join(node['7-zip']['home'], '7z.exe')}\" x -y -o\"#{win_friendly_working_directory}\" #{download_path}"
+  command "\"#{File.join(node['7-zip']['home'], '7z.exe')}\" x -y -o\"#{win_friendly_working_directory}\" #{download_path}"
   only_if {itracs_update_installed}
 end
 
-powershell_script "Install #{node['itracs']['name']} Update #{node['itracs']['update']['version']} with AutoIt" do
-    code <<-EOH
-$process = Start-Process -FilePath "#{win_friendly_itracs_update_install_exe_path}" -NoNewWindow -PassThru -Wait
-$process.ExitCode    
-    EOH
-    action :run
-    not_if {itracs_update_installed}
-end    
+execute "Run #{win_friendly_itracs_update_install_exe_path}" do
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{win_friendly_itracs_update_install_exe_path}\""
+  not_if {itracs_update_installed}
+end
