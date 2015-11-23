@@ -52,7 +52,7 @@ remote_file download_path do
 end
 
 execute "Run #{win_friendly_itracs_install_exe_path}" do
-  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{win_friendly_itracs_install_exe_path}\""
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_install_exe_path}\""
   not_if {itracs_installed}
 end
 
@@ -90,6 +90,6 @@ execute "Exract #{node['itracs']['name']} Update #{node['itracs']['update']['ver
 end
 
 execute "Run #{win_friendly_itracs_update_install_exe_path}" do
-  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s -d \"#{win_friendly_itracs_update_install_exe_path}\""
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_update_install_exe_path}\""
   not_if {itracs_update_installed}
 end
