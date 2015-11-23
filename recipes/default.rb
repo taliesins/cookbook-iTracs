@@ -80,7 +80,7 @@ end
 
 execute "Check syntax #{win_friendly_itracs_update_install_script_path} with AutoIt" do
   command "\"#{File.join(node['autoit']['home'], '/Au3Check.exe')}\" \"#{win_friendly_itracs_update_install_script_path}\""
-  not_if {itracs_installed}
+  not_if {itracs_update_installed}
 end
 
 execute "Compile #{win_friendly_itracs_update_install_script_path} with AutoIt" do
@@ -94,12 +94,12 @@ remote_file download_path do
   not_if {itracs_update_installed}
 end
 
-execute "Exract #{node['itracs']['name']} Update #{node['itracs']['update']['version']}" do
+execute "Exract #{win_friendly_working_directory} To #{download_path}" do
   command "\"#{File.join(node['7-zip']['home'], '7z.exe')}\" x -y -o\"#{win_friendly_working_directory}\" #{download_path}"
   only_if {itracs_update_installed}
 end
 
 execute "Install #{win_friendly_itracs_update_install_exe_path}" do
   command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_update_install_exe_path}\""
-  not_if {itracs_installed}
+  not_if {itracs_update_installed}
 end
