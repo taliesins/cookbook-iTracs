@@ -94,9 +94,9 @@ remote_file download_path do
   not_if {itracs_update_installed}
 end
 
-execute "Exract #{win_friendly_working_directory} To #{download_path}" do
+execute "Exract #{download_path} To #{win_friendly_working_directory}" do
   command "\"#{File.join(node['7-zip']['home'], '7z.exe')}\" x -y -o\"#{win_friendly_working_directory}\" #{download_path}"
-  only_if {itracs_update_installed}
+  not_if {itracs_update_installed}
 end
 
 execute "Install #{win_friendly_itracs_update_install_exe_path}" do
