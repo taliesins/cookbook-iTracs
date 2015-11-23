@@ -36,7 +36,7 @@ Func WaitForControl($windowName, $controlId, $pollDuration)
 			Return True
 		 Else
          $counter = $counter + 1
-         If $counter > 60
+         If $counter > 60 Then
              ConsoleWrite("Failed while waiting for control...")
              Return False            
          EndIf
