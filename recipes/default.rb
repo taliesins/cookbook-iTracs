@@ -40,6 +40,11 @@ template itracs_install_script_path do
   not_if {itracs_installed}
 end
 
+execute "Check syntax #{win_friendly_itracs_install_script_path} with AutoIt" do
+  command "\"#{File.join(node['autoit']['home'], '/Au3Check.exe')}\" \"#{win_friendly_itracs_install_script_path}\""
+  not_if {itracs_installed}
+end
+
 execute "Compile #{win_friendly_itracs_install_script_path} with AutoIt" do
   command "\"#{File.join(node['autoit']['home'], '/Aut2Exe/Aut2exe.exe')}\" /in \"#{win_friendly_itracs_install_script_path}\" /out \"#{win_friendly_itracs_install_exe_path}\""
   not_if {itracs_installed}
@@ -51,13 +56,9 @@ remote_file download_path do
   not_if {itracs_installed}
 end
 
-powershell_script "Install #{node['itracs']['name']} with AutoIt" do
-    code <<-EOH
-$process = Start-Process -FilePath "#{File.join(node['pstools']['home'], 'psexec.exe')}" -ArgumentList @('-accepteula -i -s \"#{win_friendly_itracs_install_exe_path}\"') -NoNewWindow -PassThru -Wait
-$process.ExitCode    
-    EOH
-    action :run
-    not_if {itracs_installed}
+execute "Install #{win_friendly_itracs_install_exe_path}" do
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_install_exe_path}\""
+  not_if {itracs_installed}
 end
 
 itracs_update_install_script_path = File.join(working_directory, 'iTracsUpgradeInstall.au3')
@@ -77,6 +78,11 @@ template itracs_update_install_script_path do
   not_if {itracs_update_installed}
 end
 
+execute "Check syntax #{win_friendly_itracs_update_install_script_path} with AutoIt" do
+  command "\"#{File.join(node['autoit']['home'], '/Au3Check.exe')}\" \"#{win_friendly_itracs_update_install_script_path}\""
+  not_if {itracs_installed}
+end
+
 execute "Compile #{win_friendly_itracs_update_install_script_path} with AutoIt" do
   command "\"#{File.join(node['autoit']['home'], '/Aut2Exe/Aut2exe.exe')}\" /in \"#{win_friendly_itracs_update_install_script_path}\" /out \"#{win_friendly_itracs_update_install_exe_path}\""
   not_if {itracs_update_installed}
@@ -93,12 +99,7 @@ execute "Exract #{node['itracs']['name']} Update #{node['itracs']['update']['ver
   only_if {itracs_update_installed}
 end
 
-
-powershell_script "Install #{node['itracs']['name']} Update #{node['itracs']['update']['version']} with AutoIt" do
-    code <<-EOH
-$process = Start-Process -FilePath "#{File.join(node['pstools']['home'], 'psexec.exe')}" -ArgumentList @('-accepteula -i -s \"#{win_friendly_itracs_update_install_exe_path}\"') -NoNewWindow -PassThru -Wait
-$process.ExitCode    
-    EOH
-    action :run
-    not_if {itracs_installed}
+execute "Install #{win_friendly_itracs_update_install_exe_path}" do
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_update_install_exe_path}\""
+  not_if {itracs_installed}
 end
