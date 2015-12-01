@@ -105,6 +105,6 @@ execute "Exract #{download_path} To #{win_friendly_working_directory}" do
 end
 
 execute "Install #{win_friendly_itracs_update_install_exe_path}" do
-  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i \"#{win_friendly_itracs_update_install_exe_path}\""
+  command "\"#{File.join(node['pstools']['home'], 'psexec.exe')}\" -accepteula -i -s \"#{win_friendly_itracs_update_install_exe_path}\""
   not_if {itracs_update_installed}
 end
