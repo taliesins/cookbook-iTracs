@@ -8,5 +8,5 @@ long_description 'Installs/Configures itracs'
 version          '0.1.0'
 
 depends 'autoit'
-depends '7-zip'
+depends 'seven_zip'
 depends 'windows', '>= 1.2.6'
